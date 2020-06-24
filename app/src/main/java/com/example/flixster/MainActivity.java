@@ -1,18 +1,23 @@
 package com.example.flixster;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.flixster.adapters.MovieAdapter;
 import com.example.flixster.models.Movie;
+import com.facebook.stetho.common.ArrayListAccumulator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Headers;
@@ -24,12 +29,23 @@ public class MainActivity extends AppCompatActivity {
     //For logging data
     public static final String TAG = "MainActivity";
 
-    List<Movie> movies
+    List<Movie> movies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        RecyclerView rvMovies = findViewById(R.id.rvMovies);
+        movies = new ArrayList<>();
+
+        //Create adapter
+        final MovieAdapter movieAdapter = new MovieAdapter(this, movies);
+
+        //Set the adapter on the recycling view
+        rvMovies.setAdapter(movieAdapter);
+
+        //Set a Layout Manager on the recycling view
+        rvMovies.setLayoutManager(new LinearLayoutManager(this));
 
         //Obtaining  Request
         AsyncHttpClient client = new AsyncHttpClient();
@@ -44,7 +60,9 @@ public class MainActivity extends AppCompatActivity {
                     //Creating the list of movies
                     JSONArray results = jsonObject.getJSONArray("results");
                     Log.i(TAG, "Results: " + results.toString());
-                    movies =  Movie.fromJsonArray(results);
+                    movies.addAll(Movie.fromJsonArray(results));
+                    movieAdapter.notifyDataSetChanged();
+                    Log.i(TAG, "Movies: " + movies.size());
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e(TAG, "Hit JSON exception", e);

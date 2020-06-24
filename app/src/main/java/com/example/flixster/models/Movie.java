@@ -30,7 +30,8 @@ public class Movie {
 
     //Getter methods
     public String getPosterPath() {
-        return posterPath;
+        //Formatting exact size
+        return String.format("https://image.tmdb.org/t/p/w342/%s", posterPath);
     }
 
     public String getTitle() {
