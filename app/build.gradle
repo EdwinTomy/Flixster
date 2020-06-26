@@ -48,4 +48,11 @@ dependencies {
         implementation 'jp.wasabeef:glide-transformations:4.1.0'
         implementation 'jp.co.cyberagent.android:gpuimage:2.0.4'
     }
+
+    //Broiler
+    android {
+        buildFeatures {
+            viewBinding true
+        }
+    }
 }
