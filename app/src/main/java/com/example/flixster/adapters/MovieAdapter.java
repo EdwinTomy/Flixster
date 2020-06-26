@@ -83,10 +83,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             String imageURL;
 
             //Image if its landscape or portrait
+            //Placeholder images when loading
             if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
                 imageURL = movie.getBackdropPath();
+                Glide.with(context).load("http://via.placeholder.com/300.png").into(ivPoster);
             }else{
                 imageURL = movie.getPosterPath();
+                Glide.with(context).load("http://via.placeholder.com/300.png").into(ivPoster);
             }
 
 
