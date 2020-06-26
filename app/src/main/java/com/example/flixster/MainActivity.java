@@ -6,10 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.flixster.adapters.MovieAdapter;
+import com.example.flixster.databinding.ActivityMainBinding;
+import com.example.flixster.databinding.ActivityMovieDetailsBinding;
 import com.example.flixster.models.Movie;
 import com.facebook.stetho.common.ArrayListAccumulator;
 
@@ -34,9 +37,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        //Following line deleted to reduce boilerplate
+        //setContentView(R.layout.activity_main);
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
         RecyclerView rvMovies = findViewById(R.id.rvMovies);
         movies = new ArrayList<>();
+
 
         //Create adapter
         final MovieAdapter movieAdapter = new MovieAdapter(this, movies);
