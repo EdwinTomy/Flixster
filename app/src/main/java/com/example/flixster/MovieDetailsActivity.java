@@ -2,16 +2,22 @@ package com.example.flixster;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.flixster.databinding.ActivityMovieDetailsBinding;
 import com.example.flixster.models.Movie;
 
 import org.parceler.Parcels;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
@@ -51,5 +57,21 @@ public class MovieDetailsActivity extends AppCompatActivity {
         float voteAverage = movie.getVoterAverage().floatValue();
         binding.rbVoteAverage.setRating(voteAverage = voteAverage > 0 ? voteAverage / 2.0f : voteAverage);
         binding.rDate.setText(movie.getReleaseDate());
+
+        ImageView ivPoster;
+        String imageURL;
+        ivPoster = (ImageView) findViewById(R.id.ivPoster);
+
+        if(this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            imageURL = movie.getBackdropPath();
+            Glide.with(this).load("http://via.placeholder.com/300.png").into(ivPoster);
+        }else{
+            imageURL = movie.getPosterPath();
+            Glide.with(this).load("http://via.placeholder.com/300.png").into(ivPoster);
+        }
+
+        Glide.with(this).load(imageURL).transform(new RoundedCornersTransformation(30, 0)).into(ivPoster);
+
+
     }
 }
