@@ -57,6 +57,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         float voteAverage = movie.getVoterAverage().floatValue();
         binding.rbVoteAverage.setRating(voteAverage = voteAverage > 0 ? voteAverage / 2.0f : voteAverage);
         binding.rDate.setText(movie.getReleaseDate());
+        binding.mvPop.setText(movie.getMvPop().toString());
 
         ImageView ivPoster;
         String imageURL;

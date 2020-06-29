@@ -20,11 +20,14 @@ public class Movie {
 
     String releaseDate;
 
-    //Default constructor for the parser
+    Double mvPop;
 
+
+    //Default constructor for the parser
     public Movie(){}
 
     //Constructor for object movie
+
     public Movie(JSONObject jsonObject) throws JSONException {
         backdropPath = jsonObject.getString(("backdrop_path"));
         posterPath = jsonObject.getString("poster_path");
@@ -34,9 +37,10 @@ public class Movie {
 
         voterAverage = jsonObject.getDouble("vote_average");
         releaseDate = jsonObject.getString("release_date");
+        mvPop = jsonObject.getDouble("popularity");
     }
-
     //Creating the list of movies
+
     public static List<Movie> fromJsonArray(JSONArray movieJsonArray) throws JSONException {
         List<Movie> movies = new ArrayList<>();
         for(int i = 0; i < movieJsonArray.length(); i++){
@@ -45,15 +49,14 @@ public class Movie {
     }
 
     //Getter methods
-
     public String getBackdropPath() {
         return String.format("https://image.tmdb.org/t/p/w342/%s", backdropPath);
     }
+
     public String getPosterPath() {
         //Formatting exact size
         return String.format("https://image.tmdb.org/t/p/w342/%s", posterPath);
     }
-
     public String getTitle() {
         return title;
     }
@@ -68,5 +71,9 @@ public class Movie {
 
     public String getReleaseDate() {
         return releaseDate;
+    }
+
+    public Double getMvPop() {
+        return mvPop;
     }
 }
